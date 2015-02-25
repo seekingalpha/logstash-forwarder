@@ -17,7 +17,7 @@ clean:
 .PHONY: generate-init-scripts
 generate-init-script:
 	pleaserun --install --no-install-actions --install-prefix ./build \
-		--overwrite -p sysv -v lsb-3.1 $(PREFIX)/bin/logstash-forwarder 
+		--overwrite -p sysv -v lsb-3.1 $(PREFIX)/bin/logstash-forwarder -config /etc/logstash-forwarder.conf
  
 .PHONY: rpm deb
 rpm deb: PREFIX=/opt/logstash-forwarder
@@ -29,4 +29,5 @@ rpm deb: compile generate-init-script
 		--description "a log shipping tool" \
 		--url "https://github.com/elasticsearch/logstash-forwarder" \
 		./logstash-forwarder=$(PREFIX)/bin/ \
+		./logstash-forwarder.conf.example=/etc/logstash-forwarder.conf \
 		./build/=/
